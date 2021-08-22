@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+        <link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4">Class Details</h1>
+                <hr class="my-4">
+                <p class="display-4">You are handling <span class="highlight"> {{ name }}th grade </span></p>
+                <p>The class timings are <span class="highlight"> {{ timings }} </span></p>
+                <br><br>
+                <p class="display-5">Upload Materials for the Class</p>
+                <input form="class-form" type="file" id="material" name="filename">
+                <br><br>
+                <p class="lead margin-top-5">
+                    <form id="class-form" action="/get-help" method="POST" enctype="multipart/form-data">
+                        <button type="submit" class="btn btn-danger" name="sub" value="need {{ id }}">I need a substitute</button>
+                        <button type="submit" class="btn btn-primary" name="sub" value="noneed {{ id }}">I don't need a substitute</button>
+                    </form>
+                </p>
+              </div>
+        </div>
+    </body>
+
+    
+<style type="text/css">
+    .jumbotron p {
+        font-size: large;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    .highlight {
+        color: crimson;
+    }
+</style>
+
+</html>
