@@ -1,10 +1,10 @@
 from flask.wrappers import Request
 from app import app
-from flask import flash, render_template, jsonify, request, redirect
+from flask import flash, render_template, jsonify, request, redirect, send_file
 from datetime import datetime, timedelta
 import random
 import csv
-
+from glob import glob
 
 # Class in-memory DB
 NUM_CLASSES = 100
@@ -106,8 +106,16 @@ def set_class_for_sub():
 		class_db[id_val]["class"] = "event-important"
 	uploaded_file = request.files['filename']
 	if uploaded_file.filename != '':
-		uploaded_file.save(uploaded_file.filename)
+		uploaded_file.save(str(id_val) + "_" + uploaded_file.filename)
 	return "<body style='overflow:hidden;'><img src='static/img/kid_img.jpg')></img></body>"
+
+@app.route('/download')
+def download():
+	id_val = request.args.get("id")
+	print(id_val)
+	fname = glob("{}_*.*".format(id_val))[0]
+	print(fname)
+	return send_file(fname, as_attachment=True)
 
 
 @app.route('/logout')
